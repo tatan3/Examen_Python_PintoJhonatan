@@ -21,7 +21,7 @@ def guardar_datos(datos):
     with open(RUTA_DATOS, 'w', encoding='utf-8') as f:
         json.dump(datos, f, indent=2)
 
-def menu_chefs():
+def menu_hamburgesas():
     while True:
         terminal.limpiar_pantalla()
         print('======== GESTOR DE HAMBURGESAS ========')
@@ -37,14 +37,16 @@ def menu_chefs():
                     nombre = input("Nombre: ").strip()
                     categoria = input("Categoria: ").strip()                    
                     ingredientes = input("Ingredientes: ").strip()
-                    precio = input("Precio: ").strip()                    
+                    precio = input("Precio: ").strip() 
+                    chef = input("Chef: ").strip()                   
                     
                     nuevo_elemento = {
                         'id': generadores.generar_id(),
                         'Nombre': nombre,
                         'Categoria': categoria,
                         'Ingredientes': ingredientes,
-                        'Precio':precio
+                        'Precio':precio,
+                        'Chef':chef
                     }
                     data.append(nuevo_elemento)
                     guardar_datos(data)
@@ -64,7 +66,7 @@ def menu_chefs():
                         guardar_datos(nuevos_datos)
                         print("\n¡Elemento eliminado exitosamente!")
                     terminal.pausar()
-                    return menu_chefs()
+                    return menu_hamburgesas()
                 case '3':
                     data = cargar_datos()
                     terminal.limpiar_pantalla()
@@ -78,12 +80,15 @@ def menu_chefs():
                             tabla.append([
                                 item['id'],
                                 item['Nombre'],
-                                item['Especialidad'],
+                                item['Categoria'],
+                                item['Ingredientes'],
+                                item['Chef']
+
                             ])
-                        terminal.mostrar_tabla(tabla, ["ID","Nombre","Especialidad"])
+                        terminal.mostrar_tabla(tabla, ["ID","Nombre","Categoria", "Ingredientes", "Chef"])
                     
                     terminal.pausar()
-                    return menu_chefs()
+                    return menu_hamburgesas()
                 case _:
                     terminal.limpiar_pantalla()
                     print('Retornando.......')

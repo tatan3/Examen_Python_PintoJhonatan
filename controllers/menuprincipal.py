@@ -1,6 +1,7 @@
 import controllers.menu_ingredientes as ingredientes
 import controllers.menu_categorias as categorias
 import controllers.menu_chefs as chefs
+import controllers.menu_hamburgesas as hamburgesa
 
 import utils.terminal as control
 
@@ -23,6 +24,8 @@ def main_menu():
                     categorias.menu_categorias()
                 case '3':
                     chefs.menu_chefs()
+                case '4':
+                    hamburgesa.menu_hamburgesas()
                 case _:
                     control.limpiar_pantalla()
                     print('Hasta pronto.......')
