@@ -8,7 +8,7 @@ from utils import(
 import json
 from pathlib import Path
 
-RUTA_DATOS = Path(__file__).parent.parent / "data/ingredientes.json"
+RUTA_DATOS = Path(__file__).parent.parent / "data/hamburgesas.json"
 
 def cargar_datos():
     try:
@@ -21,31 +21,31 @@ def guardar_datos(datos):
     with open(RUTA_DATOS, 'w', encoding='utf-8') as f:
         json.dump(datos, f, indent=2)
 
-def menu_ingredientes():
+def menu_chefs():
     while True:
         terminal.limpiar_pantalla()
-        print('======== GESTOR DE INGREDIENTES ========')
-        print('1. AÑADIR INGREDIENTE')
-        print('2. USAR INGREDIENTE(S)')
-        print('3. INVENTARIO')
+        print('======== GESTOR DE HAMBURGESAS ========')
+        print('1. NUEVA HAMBURGESA')
+        print('2. ELIMINAR HAMBURGESA')
+        print('3. LISTAR HAMBURGESAS')
         print('4. REGRESAR..........')
         try: 
             data = cargar_datos()
-            opcion = (input('Ingrese una opcion del 1 al 4: '))
+            opcion = input("\nSeleccione una opción (1-4): ").strip()
             match opcion:
                 case '1':
-                    Nombre = input("Nombre: ").strip()
-                    descripcion = input("Descripcion: ").strip()
-                    precio = input("Precio: ").strip()
-                    stock = input("Stock: ").strip()
+                    nombre = input("Nombre: ").strip()
+                    categoria = input("Categoria: ").strip()                    
+                    ingredientes = input("Ingredientes: ").strip()
+                    precio = input("Precio: ").strip()                    
+                    
                     nuevo_elemento = {
                         'id': generadores.generar_id(),
-                        'Nombre': Nombre,
-                        'Descripcion': descripcion,
-                        'Precio': precio,
-                        'Stock':stock
+                        'Nombre': nombre,
+                        'Categoria': categoria,
+                        'Ingredientes': ingredientes,
+                        'Precio':precio
                     }
-                    
                     data.append(nuevo_elemento)
                     guardar_datos(data)
                     print(f"agregado con éxito! ID: {nuevo_elemento['id']}")
@@ -64,7 +64,7 @@ def menu_ingredientes():
                         guardar_datos(nuevos_datos)
                         print("\n¡Elemento eliminado exitosamente!")
                     terminal.pausar()
-                    return menu_ingredientes()
+                    return menu_chefs()
                 case '3':
                     data = cargar_datos()
                     terminal.limpiar_pantalla()
@@ -78,18 +78,17 @@ def menu_ingredientes():
                             tabla.append([
                                 item['id'],
                                 item['Nombre'],
-                                item['Descripcion'],
-                                item['Precio'],
-                                item['Stock']
+                                item['Especialidad'],
                             ])
-                        terminal.mostrar_tabla(tabla, ["ID", "Nombre", "Descripcion", "Precio", "Stock"])
+                        terminal.mostrar_tabla(tabla, ["ID","Nombre","Especialidad"])
                     
                     terminal.pausar()
-                    return menu_ingredientes()
+                    return menu_chefs()
                 case _:
                     terminal.limpiar_pantalla()
                     print('Retornando.......')
                     terminal.pausar()
-                    return menuprincipal.main_menu()
+            return menuprincipal.main_menu()
         except Exception:
-           pass
+            pass  
+        

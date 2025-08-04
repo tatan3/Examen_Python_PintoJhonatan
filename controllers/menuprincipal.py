@@ -1,5 +1,7 @@
 import controllers.menu_ingredientes as ingredientes
 import controllers.menu_categorias as categorias
+import controllers.menu_chefs as chefs
+
 import utils.terminal as control
 
 def main_menu():
@@ -19,22 +21,12 @@ def main_menu():
                     ingredientes.menu_ingredientes()
                 case '2':
                     categorias.menu_categorias()
+                case '3':
+                    chefs.menu_chefs()
                 case _:
                     control.limpiar_pantalla()
-                    print('Fuera de rango....')
-                    control.pausar()
-                    return main_menu()
+                    print('Hasta pronto.......')
+                    break
         except ValueError:
             pass
-    """"
-        acciones = {
-                '1': menu_ingredientes,
-                '2':
-                '3': 
-                '4': 
-                '5': 
-                '6':
-                '7': 
-                '8': lambda: True
-            }
-    """
+    
